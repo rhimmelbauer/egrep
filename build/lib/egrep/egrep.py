@@ -1,8 +1,24 @@
 import subprocess
 from os import path
-from .EgrepErrors import EgrepErrors
+
+
+class EgrepErrors(Exception):
+    def __init__(self, *args):
+        if args:
+            self.message = args[0]
+        else:
+            self.message = None
+    
+    def __str__(self):
+        if self.message:
+            return f"EGREP Exception Raised: {self.message}"
+        else:
+            return "EGREP Exception Raised"
 
 class egrep:
+    ERROR_INVALID_NUMBER_OF_ARGUMENTS = "Invalid number of arguments. Need at least two, eg:\nEGREP(\"regex\",\"file-path\")"
+    ERROR_FILE_DOES_NOT_EXIST_AT = "File does not exist at: "
+
     EGREP = "egrep "
 
     MINIMUM_ARGUMENTS = 2
@@ -34,9 +50,9 @@ class egrep:
 
     def isValidLength(self, *args):
         if len(args) < self.MINIMUM_ARGUMENTS:
-            raise EgrepErrors(EgrepErrors.ERROR_INVALID_NUMBER_OF_ARGUMENTS)
+            raise EgrepErrors(self.ERROR_INVALID_NUMBER_OF_ARGUMENTS)
     
     def isValidFilePath(self, filePath):
         if path.exists(filePath) == False:
-            raise EgrepErrors(EgrepErrors.ERROR_FILE_DOES_NOT_EXIST_AT + filePath)
+            raise EgrepErrors(self.ERROR_FILE_DOES_NOT_EXIST_AT + filePath)
 
