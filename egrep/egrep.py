@@ -1,6 +1,6 @@
 import subprocess
 from os import path
-from .EgrepErrors import EgrepErrors
+from .egrepErrors import EgrepErrors
 
 class egrep:
     EGREP = "egrep "
