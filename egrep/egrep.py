@@ -9,7 +9,7 @@ class egrep:
 
     def __init__(self, *args):
         try:
-            self.wordsFound = []
+            self.expressionFound = []
             if(self.validateArguments(*args)):
                 self.command = self.EGREP + " ".join(args)
                 
@@ -18,16 +18,16 @@ class egrep:
 
     def __repr__(self):
         f"egrep command: {self.command}\n" + \
-        f"Words Found: {self.wordsFound}"
+        f"Words Found: {self.expressionFound}"
 
     def execute(self):
-        self.wordsFound.clear()
+        self.expressionFound.clear()
         command = subprocess.Popen([self.command], stdout=subprocess.PIPE,shell=True)
         (command_output, error) = command.communicate()
         if error:
             raise EgrepErrors(error)
         else:
-            self.wordsFound = self.createOutputList(command_output)
+            self.expressionFound = self.createOutputList(command_output)
     
     def createOutputList(self, command_output):
         return str(command_output)[1:].split("\\n")
