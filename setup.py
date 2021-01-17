@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='egrep',
-    version='0.0.5',
+    version='0.1.1',
     author='Roberto Himmelbauer',
     author_email='robertoh89@gmail.com',
     description='A simple library for exectuing egrep linux commando to files',
